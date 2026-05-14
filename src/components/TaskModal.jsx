@@ -55,6 +55,11 @@ export default function TaskModal({ task, onSaveNotes, onSaveTitle, onDelete, on
           </div>
         </div>
         <div className="modal-body">
+          {task.dueDate && (
+            <div className="modal-due">
+              Due: {new Date(task.dueDate).toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}
+            </div>
+          )}
           <label className="field-label">Notes</label>
           <textarea
             className="notes-textarea"

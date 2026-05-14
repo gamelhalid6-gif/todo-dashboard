@@ -289,6 +289,36 @@ body {
   color: #f59e0b;
 }
 
+.task-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.due-badge {
+  font-size: 11px;
+  color: #6b7280;
+  background: #f3f4f6;
+  border-radius: 4px;
+  padding: 1px 6px;
+}
+
+.due-badge.overdue {
+  color: #dc2626;
+  background: #fee2e2;
+}
+
+.modal-due {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 14px;
+  padding: 6px 10px;
+  background: #f9fafb;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
 .empty-state {
   color: #c4c7cd;
   font-size: 13px;

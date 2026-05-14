@@ -4,13 +4,14 @@ import Column from './Column';
 import TaskModal from './TaskModal';
 import * as api from '../sheetsApi';
 
-const CATEGORIES = ['Priority', 'In Progress', 'Not Important'];
+const PALETTE = [
+  '#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6',
+  '#ec4899', '#06b6d4', '#84cc16', '#f97316', '#6366f1', '#14b8a6',
+];
 
-const COLORS = {
-  Priority: '#ef4444',
-  'In Progress': '#3b82f6',
-  'Not Important': '#9ca3af',
-};
+function categoryColor(name, index) {
+  return PALETTE[index % PALETTE.length];
+}
 
 export default function Board({ token, spreadsheetId, onAuthError }) {
   const [tasks, setTasks] = useState([]);
@@ -41,7 +42,8 @@ export default function Board({ token, spreadsheetId, onAuthError }) {
 
   useEffect(() => { loadData(); }, [loadData]);
 
-  const grouped = CATEGORIES.reduce((acc, cat) => {
+  const categories = [...new Set(tasks.map(t => t.category))].sort();
+  const grouped = categories.reduce((acc, cat) => {
     acc[cat] = tasks.filter(t => t.category === cat);
     return acc;
   }, {});
@@ -140,11 +142,11 @@ export default function Board({ token, spreadsheetId, onAuthError }) {
         onDragEnd={handleDragEnd}
       >
         <div className="board">
-          {CATEGORIES.map(cat => (
+          {categories.map((cat, i) => (
             <Column
               key={cat}
               name={cat}
-              color={COLORS[cat]}
+              color={categoryColor(cat, i)}
               tasks={grouped[cat]}
               onTaskClick={setSelectedTask}
               onAddTask={(title) => handleAddTask(cat, title)}
